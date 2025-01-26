@@ -13,6 +13,25 @@
         }
         .red-cross {
             color: red !important; /* اطمینان از قرمز بودن ضربدرها */
+            display: inline-block;
+            animation: spin 1.5s infinite linear; /* چرخش ضربدرها */
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .form-select {
+            width: 100%;
+        }
+        tbody tr:nth-child(odd) {
+            background-color: #f8f9fa;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #e9ecef;
         }
     </style>
 </head>
@@ -51,7 +70,6 @@
             const isoSelect = document.getElementById('isoSelect');
             const dataGrid = document.getElementById('dataGrid');
 
-            // دریافت داده‌ها از فایل متنی
             fetch('https://raw.githubusercontent.com/akarimvand/JH/refs/heads/main/JHDB.txt')
                 .then(response => response.text())
                 .then(data => {
@@ -59,7 +77,6 @@
                     const headers = lines[0].split(',');
                     const rows = lines.slice(1).map(line => line.split(','));
 
-                    // ایجاد لیست ISO_NO بدون تکراری
                     const isoNos = [...new Set(rows.map(row => row[0]))];
                     isoNos.forEach(iso => {
                         const option = document.createElement('option');
@@ -68,22 +85,20 @@
                         isoSelect.appendChild(option);
                     });
 
-                    // فعال‌سازی Bootstrap Select
                     $(isoSelect).selectpicker('refresh');
 
-                    // نمایش داده‌ها بر اساس انتخاب کاربر
                     const updateTable = (selectedIso) => {
                         const filteredRows = rows.filter(row => row[0] === selectedIso);
 
                         dataGrid.innerHTML = '';
                         filteredRows.forEach((row, rowIndex) => {
                             const tr = document.createElement('tr');
-                            tr.classList.add('animate__animated', 'animate__fadeIn'); // افزودن افکت انیمیشن
-                            tr.style.setProperty('--animate-duration', `${0.5 + rowIndex * 0.1}s`); // تأخیر برای هر ردیف
+                            tr.classList.add('animate__animated', 'animate__fadeIn');
+                            tr.style.setProperty('--animate-duration', `${0.5 + rowIndex * 0.1}s`);
 
                             row.forEach((cell, index) => {
                                 const td = document.createElement('td');
-                                if (index === 4 || index === 5 || index === 6) { // ستون‌های FITUP, WELD, ERECTION
+                                if (index === 4 || index === 5 || index === 6) {
                                     if (cell.trim() === '') {
                                         td.innerHTML = '<span class="red-cross">✖</span>';
                                     } else if (cell === '✔') {
@@ -100,12 +115,10 @@
                         });
                     };
 
-                    // رویداد تغییر dropdown
                     isoSelect.addEventListener('change', function() {
                         updateTable(this.value);
                     });
 
-                    // فیلتر لحظه‌ای در dropdown
                     $(isoSelect).on('changed.bs.select', function (e) {
                         updateTable(this.value);
                     });
