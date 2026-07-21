@@ -1,1 +1,1 @@
-(empty)
+Nothing needs to be added to .gitignore for this change list. The file `test-debug.php` is a PHP source file that should be tracked in version control, and there are no build artifacts, dependencies, or temporary files in the changes that would warrant adding ignore rules.
