@@ -1,0 +1,5 @@
+[Tue Jul 21 16:07:52 2026] PHP 8.2.32 Development Server (http://localhost:8000) started
+[Tue Jul 21 16:07:56 2026] [::1]:46866 Accepted
+[Tue Jul 21 16:07:56 2026] PHP Warning:  Undefined array key 1 in /workspace/index.php on line 106
+[Tue Jul 21 16:07:56 2026] [::1]:46866 [500]: GET /
+[Tue Jul 21 16:07:56 2026] [::1]:46866 Closing
